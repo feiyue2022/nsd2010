@@ -1,0 +1,25 @@
+---
+- name: configure web
+  hosts: webservers
+  tasks:
+    - name: install pkgs
+      yum:
+        pkg: httpd,php,php-mysql
+        state: present
+    - name: configure serivce
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+- name: configure db
+  hosts: dbservers
+  tasks:
+    - name: install pkgs
+      yum:
+        name: mariadb-server
+        state: present
+    - name: configure service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes

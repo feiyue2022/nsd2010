@@ -1,0 +1,53 @@
+Python1-day4-上
+1、shutil模块	
+	- shutil.copyfileobj()		以文件对象的形式进行拷贝
+	- shutil.copy()				将文件复制到文件或目录
+	- shutil.copy2()			将文件复制到文件或目录，尝试保留元数据
+	- shutil.move()				递归移动文件或目录到新位置
+	
+	- shutil.copytree()			复制目录且目标路径不能存在
+	- shutil.rmtree()			删除目录，路径必须是目录，不能是目录的连接符号
+	
+	- shutil.copymode()			拷贝权限位
+	- shutil.copystat()			拷贝权限位、最后访问时间、上次修改时间等（元数据）
+	- shutil.chown()			修改所有者、所属组
+	
+2、subprocess模块：python2.4新增的模块，用于代替os.system、os.spawn*
+	- subprocess.run()			Python3.5新增的函数
+		- subprocess.run(['ls','/home'])
+		- subprocess.run('ls /home',shell=True)
+		- subprocess.run('ls /home',shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	- subprocess.call()			执行指定的命令，返回状态
+	- subprocess.getoutput()	接收字符串格式的命令，执行命令并返回结果
+	- subprocess.getstatusoutput()执行cmd命令，返回一个元组（状态码，命令结果）
+	
+3、Python语法风格
+	- 变量赋值
+		- x=y=10		链式赋值
+		- x,y = 10,20  	多元赋值
+	- 合法标识符
+		- 第一个字符必须是字母或者下划线
+		- 剩下的可以是大小写字母、数字和下划线
+		- 大小写敏感
+	- 关键字
+		- 特定的保留字符
+		- keyword模块
+	- 内建函数
+		- 除了关键字，还有一些特殊的函数，如print()/len()等
+		- 覆盖后无法使用
+		
+	- 总结：设置变量时，遵守合法标识符的规则，避开关键字和内建函数
+	
+	
+	- 模块结构及布局
+		- 起始行：解释器
+		- 说明文档
+		- 导入的模块
+		- 全局变量
+		- 类
+		- 函数
+		- 程序主体
+		
+	- 判断字符串是否合法案例
+		
+		

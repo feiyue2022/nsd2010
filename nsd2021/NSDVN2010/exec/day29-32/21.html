@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪类选择器</title>
+    <style>
+        /* 对于还没收到访问的超链接做设置 */
+        a:link{
+            text-decoration: none;
+        }
+        /* 鼠标悬停在元素上的效果 */
+        a:hover{
+            font-size: 1.5em;
+        }
+        /* 被访问过的超链接的效果 */
+        a:visited{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p><a href="http://www.baidu.com" target="_blank">百度搜索</a></p>
+</body>
+</html>

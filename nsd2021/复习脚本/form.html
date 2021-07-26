@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<body>
+    <p>
+        <form action="">
+            <!-- textarea 多行文本输入框         默认30列10行 -->
+            <textarea name="comment" id="" cols="30" rows="10"></textarea> <br>
+            <input type="submit" value="发表">
+        </form>
+    </p>
+    <p>
+        <b>单选题</b>
+    </p>
+    <p>
+        <form action="">
+            <!-- p类型有间距 -->
+            <P>1.以下（）是python的数据类型</P>
+            <!-- div类型没有间距 -->
+            <div>
+                <!-- 方法一 label 可以方便用户点击文字也可以进行选择 -->
+                <label>
+                    <!-- radio为选项类型 name='q1'有实现互斥效果 value=''使q1赋值-->
+                    <input type="radio" name="q1" value="A">
+                    A.元组
+                </label>
+                 
+            </div>
+            <div>
+                <!-- label方法二  把选项B列表放在 label 里面 for= id的值 input 添加id   -->
+                <input id='1B' type="radio" name="q1" value="B">
+                <label for="1B">B.列表</label>
+            </div>
+            <div>
+                <input type="radio" name="q1" value="C">
+                C.字典
+            </div>
+            <input type="submit" value="提交">
+        </form>
+    </p>
+    <p>
+        <form action="">
+            <p>
+                2. 使用二进制模式打开文件需要在访问模式中添加哪个模式选项?
+                <div>
+                    <!-- radio为选项类型 name='q2'有实现互斥效果 value=''使q2赋值-->
+                    <input type="radio" name="q2" id="2A" value="A">
+                    <label for="2A">A.a</label>
+                </div>
+                <div>
+                    <input type="radio" name="q2" id="2B" value="B">
+                    <label for="2B">B.b</label>
+                </div>
+                <div>
+                    <input type="radio" name="q2" id="2C" value="C">
+                    <label for="2C">C.r</label>
+                </div>
+                <div>
+                    <input type="radio" name="q2" id="2D" value="D">
+                    <label for="2D">D.w</label>
+                </div>
+                <input type="submit" value="提交">
+            </p>
+        </form>
+    </p>
+    <p>3. 哪个不属于数字类型？
+        <form action="">
+            <div>
+                <!-- select创建枚举选项框 -->
+                <select name="q3" >
+                    <option value="A">A. 1+1</option>
+                    <option value="B">B. 123</option>
+                    <option value="C">C. 3.14</option>
+                    <option value="D">D. '1234'</option>
+                </select>
+                <input type="submit" value="提交">
+            </div>
+        </form>
+    </p>
+    <hr>
+    <p>
+        <b>多选题</b>
+    </p>
+    <p>
+        <form action="">
+            <!-- p类型有间距 -->
+            <P>1.以下（）不是python的映射数据类型</P>
+            <!-- div类型没有间距 -->
+            <div>
+                <!-- checkbox为多选类型 -->
+                <input type="checkbox" name="m1" value="A">
+                A.元组
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="m1" value="B">
+                    B.列表
+                </label>
+            </div>
+            <div>
+                
+                <input type="checkbox" name="m1" value="C" id='m1c' >
+                <label for="m1c">C.字典</label>
+            </div>
+            <!-- 按钮类型用type='submit' -->
+            <input type="submit" value="提交">
+        </form>
+    </p>
+    <hr>
+    <p>
+        <form action="">
+            uname: <input type="text" placeholder="用户名">
+            <!-- 让密码不能明文显示 用type='password' -->
+            upass: <input type="password" placeholder="密码">
+            <!-- 按钮类型用type='submit' -->
+            <input type="submit" value="登录">
+            <!-- 将用户和密码输入框里的字符清除 用type='reset' -->
+            <input type="reset" value="重置">
+
+        </form>
+    </p>
+    <hr>
+    <p>
+        <form action="https://www.sogou.com/web" target="_blank">
+            <input type="text" name="query"> 
+            <input type="submit" value="搜狗搜索">
+        </form>
+    </p>
+   
+    <p>
+        <form action="https://pic.sogou.com/pics" target="_blank">
+            <input type="text" name="query" id="">
+            <input type="submit" value="搜狗图片搜索">
+        </form>
+    </p>
+    
+    <p>
+        <form action="https://www.baidu.com/s" target="_blank">
+        <input type="text" name="wd" id="">
+        <input type="submit" value="百度搜索">
+        </form>
+    </p>
+    <p>
+        <form action="https://image.baidu.com/search/index" target="_blank">
+        <input type="hidden" name="tn" value="baiduimage">
+        <input type="text" name="word" id="">
+        <input type="submit" value="百度图片搜索">
+        </form>
+    </p>
+</body>
+</html>

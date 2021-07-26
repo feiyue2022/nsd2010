@@ -1,0 +1,88 @@
+Python2-day4-下
+1、SQLAlchemy概述
+	- 相对于PyMySQL，SQLAlchemy更注重面向对象编程，以Python类的实例去操作数据库
+	- 概念
+		- SQLAlchemy是Python编程语言下的一款开源软件。提供对象关系映射 (ORM) 工具，使用MIT 许可证书
+		- SQLAlchemy“采用简单的Python语言，为高效和高性能的数据库访问设计，实现了完整的企业级持久模型”
+	- 理念
+		- SQL数据库的量级和性能重要于对象集合；而对象集合的抽象又重要于表和行
+			- 对象-->实例-->表记录
+			- 对象集合的抽象-->类-->字段
+	- 目标
+		- 提供能兼容众多数据库(如：SQLite、MySQL、Postgresql、Oracle、MS-SQL、SQLServer)的企业级持久性模型
+	- ORM:
+		- 一种对象关系型映射模型(Object Relational Mapper)
+		- 展现了一种将用户定义的Python的类映射到数据库中表的方法    --> 不用懂sql语句，用python类去组装
+		- 通过实例化类，用对象创建表和操作表中的数据
+		- 从sql语句中抽离出来，用Python的语法实现操作数据库（可以不会sql语句）
+	- 可以理解为SQLAlchemy是用户和数据库的中介，进行实例和sql操作的转换
+	- 性能
+		- 比原生sql语句要慢，因为多了转换的过程
+	- 架构
+		- SQLAlchemy ORM：和用户进行对接，用户通过定义class，可以对数据库进行操作；
+		- SQLAlchemy Core:
+			- 1》SQL Expression Language，数据库语言；
+			- 2》Engine, 操作不同的数据库【ORACLE,MYSQL等】，采用不同的引擎；
+			- 3》Connection Pooling, 连接池，要操作哪个数据库，使用连接池去绑定对应的数据库即可【session会话】；
+			- 4》Dialect, 每个数据库的操作语言不同，可以针对不同的数据库语言进行处理；
+			- DBAPI: python 在底层对数据库的操作接口；
+	- 安装
+		- pip install sqlalchemy
+	- 创建engine连接数据库，相当于调用pymysql的connect()方法
+	- 实例化session对象创建会话-->创建连接池(可直接绑定engine，也可以先创建空会话然后绑定engine)
+	- 表结构(二维数组) --> Python的类的实例化对象   (1,'zhangsan') --> User(1,'zhangsan')
+	- 声明映射 
+		- declarative_base() 创建了一个 BaseModel 类，这个类的子类可以自动与一个表关联
+		- 即通过这个基类可以实现Python对象到sql语句的转换，后边定义表和操作表都要以这个类作为父类
+	- 映射说明
+		- 类
+			- 表映射为sqlalchemy的类
+			- 数据类型映射为sqlalchemy的类
+			- 字段映射为类变量，对应Column实例
+		- 实例
+			- 表记录映射为实例
+			
+2、数据库对象管理
+	- 基于前边声明的基类，创建每个表的类
+	- 创建规则参考映射说明
+	- 通过Base.metadata.create_all(engine)实例化表，如果表存在，则不会重新创建
+	
+3、SQLAlchemy应用
+	- 添加对象
+		- 工作过程
+			- 会话类的实例对象用于绑定数据库
+			- 不打开任何连接
+			- 使用时从engine维护的连接池中获取一个连接
+			- 当前连接的所有事物被commit或者会话对象关闭时，连接结束
+	- 添加
+		- 单个新对象
+			- .add()
+		- 批量新对象
+			- .add_all(list)
+		
+	- 查询
+		- 基本查询
+			- .query(classname)
+			- .query(classname.attr)
+		- 排序
+			- .query(classname).order_by(classname.attr)
+		- 结果过滤
+			- .filter(classname.attr condition)			#where name=='zs'
+			- 可以多重使用
+			- 模糊查询 '%.cn'
+			- in条件    ~取反
+		- 多表查询
+			- .join()
+		- 操作结果(对象)
+			- for遍历
+			- .all()-->list
+			- .first()-->第一条
+		
+	- 修改
+		- 查询到需要的对象后对属性重新赋值
+		- get 		res.first() = 'zs'
+		  modifey 	res.first() = 'ls'
+	
+	- 删除
+		- 查询到需要的对象后删除实例
+		- .delelte()

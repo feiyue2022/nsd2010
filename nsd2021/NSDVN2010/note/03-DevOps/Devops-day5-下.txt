@@ -1,0 +1,62 @@
+DevOps-day5-下
+1、管理Jenkins项目
+	- 流程
+		- 新建任务
+		- 参数化构建过程
+		- git管理源码：http方式		
+	- 构建
+		- build  with parameters
+		- 选择参数
+		- 构建
+		- 查看控制台输出
+	- 子目录构建
+		- 检出到子目录
+		- 命名子目录
+		- 重新构建
+	- 优化构建过程
+		- 修正Jenkins服务器为分发服务器
+		- 安装apache、创建分发目录
+		- 修改项目构建设置
+		- 构建->执行shell命令
+		- 重新构建项目-检测构建结果
+		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++====
+[root@jenkins ~]# yum -y install httpd
+[root@jenkins ~]# mkdir -p /var/www/html/deploy/pkgs				#存放的代码的tar包和md5检验文件
+[root@jenkins ~]# chown -R jenkins.jenkins /var/www/html/deploy/	#版本文件
+#修改Jenkins工程，添加构建shell动作
+pkg_dir='/var/www/html/deplpy/pkgs'					#定义发布目录
+cp -r mysite-$myweb $pkg_dir						#构建工程时拷贝下载到的版本到发布目录
+cd $pkg_dir											#切换到发布目录
+rm -rf mysite-$myweb/.git/							#删除下载下来的git版本库
+tar -zcvf mysite-$myweb.tar.gz mysite-$myweb		#将目录进行打包
+rm -rf mysite-$myweb								#打包完成后删除代码目录
+md5sum mysite-$myweb.tar.gz | awk '{print $1}' > mysite-$myweb.tar.gz.md5	#对tar包做md5校验
+cd ..												#切换至上一级目录
+[ -f live_version ] && cat live_version > last_version	#如果存在当前版本文件则将其内容写到上一版本
+echo -n "$myweb" > live_version						#将当前版本写入版本文件
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++===
+2、自动化部署框架
+	- 嵌入钉钉
+		- 测试钉钉机器人发布构建消息
+	- 规划
+		- /var/www/download  存储下载文件
+		- /var/www/deploy    存放解压目录
+		- /var/www/html/current  软链接，指向发布的版本
+	- 流程
+		- 下载应用
+			- 通过位置参数指定要下载的版本
+			- 位置参数是live下载当前版本
+			- 位置参数是last下载上一版本
+			- 如果已下载，不重复下载
+		- 校验文件
+			- 计算指定文件的md5值
+			- 校验值
+		- 发布应用
+			- 根据指定的版本，制作软链接
+	
+
+3、自动化部署实现
+	- 代码完善

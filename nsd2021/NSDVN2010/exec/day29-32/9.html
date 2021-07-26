@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form表单</title>
+</head>
+<body>
+    <div>
+        <!-- 模拟搜索 -->
+        <form action="https://www.baidu.com/s" target="_blank">
+            <input type="text" name="wd">
+            <input type="submit" value="百度搜索">
+        </form>
+        <form action="https://www.sogou.com/web" target="_blank">
+            <input type="text" name="query">
+            <input type="submit" value="搜狗搜索">
+        </form>
+        <form action="https://cn.bing.com/search" target="_blank">
+            <input type="text" name="q">
+            <input type="submit" value="必应搜索">
+        </form>
+    </div>
+    <hr>
+    <div>
+        <!-- 模拟搜图 -->
+        <form action="https://image.baidu.com/search/index" target="_blank">
+            <input type="hidden" name="tn" value="baiduimage">
+            <input type="text" name="word">
+            <input type="submit" value="百度搜图">
+        </form>
+        <form action="https://pic.sogou.com/pics" target="_blank">
+            <input type="text" name="query">
+            <input type="submit" value="搜狗搜图">
+        </form>
+        <form action="https://cn.bing.com/images/search" target="_blank">
+            <input type="text" name="q">
+            <input type="submit" value="必应搜图">
+        </form>
+    </div>
+    <hr>
+    <div>
+        <!-- 模拟登录框 -->
+        <form action="#">
+            <input type="text" name="username" placeholder="用户名"><br>
+            <input type="password" name="password" placeholder="密码"><br>
+            <input type="submit" value="登录">
+            <input type="reset" value="清空">
+        </form>
+    </div>
+    <hr>
+    <div>
+        <!-- 单选框和复选框 -->
+        <p>
+            <form action="#">
+                <p>1、你最喜欢哪个诗人()</p>
+                <div>
+                    <label>
+                        <input type="radio" name="q1" value="A">
+                        A.李白
+                    </label>
+                </div>
+                <div>
+                    <input type="radio" name="q1" id="idb" value="B">
+                    <label for="idb">B.杜甫</label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="q1" value="C">
+                        C.苏轼
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="q1" value="D">
+                        D.陆游
+                    </label>
+                </div>
+                <input type="submit">
+            </form>
+        </p>
+        <p>
+            <form action="#">
+                <p>1、你喜欢哪些诗人()</p>
+                <div>
+                    <label>
+                        <input type="checkbox" name="q2" value="A">
+                        A.李白
+                    </label>
+                </div>
+                <div>
+                    <input type="checkbox" name="q2" id="idc" value="B">
+                    <label for="idc">B.杜甫</label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" name="q2" value="C">
+                        C.苏轼
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" name="q2" value="D">
+                        D.陆游
+                    </label>
+                </div>
+                <input type="submit">
+            </form>
+        </p>
+        <hr>
+        <div>
+            <!-- 选择框 -->
+            <p>
+                3、你最喜欢的女诗人（）
+                <form action="#">
+                    <select name="p3">
+                        <option value=""></option>
+                        <option value="A">A.李清照</option>
+                        <option value="B">B.蔡文姬</option>
+                        <option value="C">C.卓文君</option>
+                    </select><br>
+                    <input type="submit" name="" id="">
+                </form>
+            </p>
+        </div>
+        <hr>
+        <div>
+            <!-- 多行文本 -->
+            <form action="#">
+                <textarea name="comment" id="" cols="30" rows="10"></textarea>
+                <br><input type="submit" name="" id="">
+            </form>
+        </div>
+        <hr>
+        <div>
+            <!-- 文件选择 -->
+            <form action="#" method="POST">
+                <input type="file" name="file" multiple>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+DevOps-day3-上
+1、ansible概述
+	- 概述
+		- 自动化运维工具(目前最火的)
+		- 部署简单，支持ssh协议即可
+	- 安装
+		- rpm包
+		- pip方式(注意版本，2.7.2)
+	- 配置
+		- ansible.cfg
+		- hosts
+		
+2、ansible进阶
+	- playbook
+		- 采用yaml文件格式
+		- 一个需要在远程主机执行的命令方案或一组程序运行的命令集合
+		- 可以由一个或多个play组成
+		- 命令一般通过调用模块来实现
+	- vim配置
+		- autocmd FileType yaml setlocal sw=2 ts=2 ai et
+	- lamp案例
+
+3、ansible API基础
+	- 官网
+		- https://docs.ansible.com/ansible/
+	- 命名元组
+		- 与普通元组一样，具有相同的特征
+		- 可以根据名称引用元组中的项
+		- from collections import namedtuple
+	- DataLoader
+		- 用来加载解析yaml文件或者json内容，并且支持vault的解密
+	- VariableManager
+		- 管理变量的类，包括主机、组、扩展等变量
+	- InventoryManger
+		- 用于创建主机清单，主机清单的源采用配置文件或者逗号分开的主机名字符串
+	- Play
+		- 用于创建Play对象，能够通过play_source提供的信息创建任务对象
+	- TaskQueueManager
+		- 用于处理进程池中的多进程，队列管理器
+	- ansible.constants
+		- 存储ansible的预定义变量
+	
+		

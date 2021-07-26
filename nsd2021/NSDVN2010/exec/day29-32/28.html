@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航栏</title>
+    <style>
+        .container{
+            border: 1px black solid;
+            width: 960px;
+            margin: 10px auto;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        li{
+            /* border: 1px red solid; */
+            /* 将块元素浮动至一行 */
+            float: left;
+        }
+        a{
+            width: 160px;
+            /* 将行内元素设置为块元素 */
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            background-color: silver;
+            line-height: 30px;
+            font-weight: bold;
+            color: #fff;
+        }
+        a:hover{
+            background-color: rgb(99, 54, 88);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">NEWS</a></li>
+            <li><a href="#">ARTICLE</a></li>
+            <li><a href="#">DISCUSS</a></li>
+            <li><a href="#">CONTENT</a></li>
+            <li><a href="#">ABOUT</a></li>
+        </ul>
+    </div>
+</body>
+</html>

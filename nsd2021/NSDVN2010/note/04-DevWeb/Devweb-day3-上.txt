@@ -1,0 +1,122 @@
+DevWeb-day3-上
+1、Django概述
+	- Python后端开发，将Python用于网站开发
+		- 框架 -- 写好的基石
+			- Django
+			- Flask
+			- Tornado
+	- Django
+		- 开放源代码的web应用框架
+		- Python编写
+		- 最初用于劳伦斯旗下的新闻
+		- 2005年7月在BSD许可证下发布
+		- OpenStack的web页面就是用Django写的
+	- 核心组件
+		- 用于创建模型的对象关系映射（orm）
+		- 为最终用户设计的完美的管理界面
+		- 一流的URL设计
+		- 设计者友好的模板语言
+		- 缓存系统
+	- MTV模型
+		- 解析
+			- M：负责业务对象和数据库的关系映射
+			- T：把页面展示给用户
+			- V：负责业务逻辑，并调用M和T
+		- 响应模式
+			- 见图解
+	- 安装
+		- pip install django=2.2.12
+2、管理项目
+	- 创建方式
+		- pycharm专业版创建
+		- django-admin命令
+			- django-admin startproject projectname
+	- 项目结构分析
+		- projectname
+				|- manager.py				#项目管理脚本
+				|- mysite					#项目配置目录
+				|		|- __init__.py		#初始化文件
+				|		|- settings.py		#设置文件
+				|		|- urls.py			#路由映射文件
+				|		|- wsgi.py			#发布Django的配置文件
+				|- templates				#模板文件目录
+	- 运行项目
+		- 开发过程中使用Django内置的服务器
+		- python manager.py runserver ip:port
+		- 打开浏览器访问ip：port
+	- 修改基础配置
+		- settings.py
+			- 允许所有主机访问
+				- ALLOWED_HOSTS=['*']
+			- 默认使用sqlite数据库，修改为MySQL
+				- DATABASES = {
+					'default': {
+						'ENGINE': 'django.db.backend.mysql',
+						'HOST': 'dbserver_ip',
+						'PORT': 'dbserver_port',
+						'USER': 'dbserver_user',
+						'PASSWORD': 'dbserver_password',
+						'NAME': 'dbname'
+					}
+				}
+			- 修改语言
+				- LANGUAGE_CODE='zh-hans'
+			- 时区
+				- TIME_ZONE='Asia/Shanghai'
+			- 是否使用utc时间
+				- USE_TZ=False
+		- __init__.py
+			- import pymysql
+			  pymysql.install_as_MySQLdb()
+	- 运行项目报错，修改Django源代码
+		- venv/lib64/python3.6/site-packages/django/db/backends/mysql/
+			- base.py
+				- 35/36注释
+			- operations.py
+				- 146注释
+	- 初始化数据库
+		- python manager.py makemigrations	#创建数据库映射关系
+		- python manager.py migrate			#生成数据库
+	- 创建管理员用户
+		- python manager.py createsuperuser	#admin:admin@tedu.cn:1234.com
+	- 运行项目并访问管理页面
+		- localhost:8080/admin/
+3、管理应用
+	- 应用
+		- 应用是一个程序，是具体事项或者一个功能
+		- 项目是特定的网站配置和应用程序的集合
+		- 一个项目可以有多个应用
+		- 一个应用也可以应用到多个项目
+	- 应用规划
+		- http://x.x.x.x/polls/		#首页，显示所有的投票项
+		- http://x.x.x.x/polls/1	#1号问题详情，可以投票
+		- http://x.x.x.x/polls/1/result/	#1号问题的投票结果
+	- 创建应用
+		- python manager.py startapp polls
+	- 注册应用
+		- 修改settings.py
+			- INSTALLED_APPS = [
+				XXXX,
+				'appname',
+			]
+	- 配置项目URLconf
+		- path('appname/',include('appname.urls'))
+	- 创建应用路由文件
+		- touch appname/urls.py
+		- from django.urls import path
+		  from polls import views     	#如果导入出错，将项目根目录标记成源
+		  urlpatterns = []				#参数名必须是这个
+		- path函数
+			- 具有四个参数
+			- 必选参数是route和view
+			- 可选参数是kwargs和name
+				- route		匹配url的准则，可理解为正则表达式，有先后顺序
+				- view		匹配到准则后调用特定的视图函数
+				- kwargs	任意个关键字参数可以作为一个字典传递给目标视图函数
+				- name		给url命名，便于在Django的任意位置引用
+	- 创建视图
+		- 编辑appname/views.py	
+			- def func(request)
+				- request表示用户发来的第一个请求，包括所有参数
+	- 测试应用
+		- http://x.x.x.x/appname/

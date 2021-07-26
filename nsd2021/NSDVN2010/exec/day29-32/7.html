@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格</title>
+</head>
+<body>
+    <!-- 带表头的表格 -->
+    <div>
+        <table border="1px" width="300px">
+            <thead>
+                <tr>
+                    <td>日期</td>
+                    <td>支出</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>7.5</td>
+                    <td>120</td>
+                </tr>
+                <tr>
+                    <td>7.8</td>
+                    <td>72</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>汇总</td>
+                    <td>192</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- 不规则表格 -->
+    <div>
+        <table border="1px"  width="100px" height=50px>
+            <tr>
+                <td colspan="2"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"></td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    <!-- 规则表格 -->
+    <div>
+        <table border="1px" width="500px"  height="350px"
+        align="center" cellpadding='0px' cellspacing='0px'
+        bgcolor='silver'>
+            <tr align="center" >
+                <td valign="top">课程</td>
+                <td>名称</td>
+                <td>描述</td>
+            </tr>
+            <tr>
+                <td>第一阶段</td>
+                <td>Network</td>
+                <td>网络</td>
+            </tr>
+            <tr>
+                <td>第二阶段</td>
+                <td>Linux</td>
+                <td>Linux系统</td>
+            </tr>
+            <tr>
+                <td>第三阶段</td>
+                <td>Automation</td>
+                <td>高级运维</td>
+            </tr>
+            <tr>
+                <td>第四阶段</td>
+                <td>Database</td>
+                <td>MySQL数据库</td>
+            </tr>
+        </table>
+    </div>
+    
+    </div>
+</body>
+</html>

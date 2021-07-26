@@ -1,0 +1,60 @@
+Python1-day4-下
+1、模块练习
+	- 创建文件
+		- 1. 编写一个程序，要求用户输入文件名
+		- 2. 如果文件已存在，要求用户重新输入
+		- 3. 提示用户输入数据，每行数据先写到列表中
+		- 4. 将列表数据写入到用户输入的文件名中
+
+2、序列对象
+	- 字符串、列表、元组、集合
+	- 详见word笔记
+	- enumerate()
+	
+3、字符串常用方法
+	- 判断
+		- isalnum()		是否为字母或数字
+		- isalpha()		是否只由字母组成
+		- isdigit()		是否只由数字组成
+		- isspace()		是否为空白字符
+		- isupper()		是否为大写字母
+		- islower()		是否为小写字母
+		- istitle()		是否为标题（首字母大写）
+		- starswith()	以xx开始
+		- endswith()	以xx结束
+	- 转换
+		- upper()		转换成大写
+		- lower()		转换成小写
+		- swapcase()	大小写反转
+		- capitalize()	首字母大写
+		- title()		单词首字母大写
+	- 替换
+		- replace()
+	- 查找
+		- find()		查找字符返回索引
+		- index()		查找字符返回索引
+			- 区别，不存在是find()返回-1，index()报TypeError
+	- 位置对齐
+		- zfill()		右对齐，左填充0
+		- rjust()		右对齐
+		- ljust()		左对齐
+		- center()		居中
+	- 删除
+		- strip()		移除开头和结尾的指定字符
+		- rstrip()		移除结尾的指定字符
+		- lstrip()		移除开头的指定字符
+	- 拼接
+		- join()		将()里边的字符用s变量连接
+	- 分割
+		- split()		根据指定字符进行分割，返回列表
+	- 计数
+		- count()
+		- len()
+	- 编码
+		- encode()		编码字符串
+		- decode()		解码字符串
+	
+	
+	- 参考博客
+		https://blog.csdn.net/weixin_43158056/article/details/92798114
+		

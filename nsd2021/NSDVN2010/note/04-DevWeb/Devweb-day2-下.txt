@@ -1,0 +1,64 @@
+DevWeb-day2-下
+1、BOOTSTRAP概述
+	- Twitter公司推出的前端web框架，也就是别人造好的轮子
+		- 官网站点
+			- https://www.bootcss.com
+		- 目录结构
+			- static	
+				|- css		样式表
+				|- js		js脚本
+				|- fonts	字体
+				|- imgs		图片
+		- 排版样式
+			- 全局font-size 14px
+			- 全局line-height 20px
+			- p元素设置10px
+			- 颜色为#333
+		- 内联文本样式
+			- mark、del、s、ins、u、small、strong、em
+		- 对齐方式
+			- text-center	
+			- text-left
+			- text-right
+		- 颜色
+			- danger 	危险红
+			- muted		柔和灰
+			- primary	首要蓝
+			- info		信息蓝
+			- success	成功绿
+			- warning	警告黄
+		- 表格
+			- table				基础样式
+			- table-bordered	边框
+			- table-striped		隔行条纹
+			- table-hover		鼠标悬停样式
+2、BOOTSTRAP全局样式
+	- 按钮
+		- btn
+	- 表单
+		- form类
+	- 图片
+		- img
+			- rounded、circle、thunbnail
+	- 栅格系统
+		- 实现页面布局
+		- 所有元素位于container类中
+		- container的直接子元素是row
+		- row中的元素是col-xx-yy
+		- 一个row内最多支持12列
+		- 还可以设置自适应屏幕大小
+3、BOOTSTRAP组件
+	- 字体图标
+		- BOOTSTRAP提供了一套用于web/app开发的常用图标字体
+		- Glyphicons Halflings
+	- 导航栏
+		- 水平导航
+			- nav nav-tabs
+			- nav mav-tabs nav-pills
+		- 垂直导航
+			- nav nav-stacked nav-pills
+	- 轮播图
+		- 多张图进行滚动轮播
+		- 可以为图片添加超链接
+		- 实现不同图片链接到不同URL
+		- 需要JS代码支持

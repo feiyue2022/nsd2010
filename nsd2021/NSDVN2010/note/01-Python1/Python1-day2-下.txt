@@ -1,0 +1,22 @@
+1、循环中断处理
+    - break         #结束循环体，继续执行循环后边的代码
+    - continue      #结束当前循环，执行下一次循环
+    - else          #只在循环结束后执行，break会跳过else
+    - sys.exit()    #退出脚本
+
+    - 案例：猜数字程序(100内数字，猜5次)
+
+2、for循环
+    - 接受可迭代对象iterable，每次迭代一个元素
+    - 支持break，continue，else子句
+    - 循环次数已知的情况下推荐使用for循环
+
+    - range()函数
+
+    - 案例：斐波那契数列（固定长度，不固定长度）
+    
+    - 快速创建列表
+        [expr for intr_var in iterable ]
+            [i for i in range(10)]
+    
+    - 案例：九九乘法表

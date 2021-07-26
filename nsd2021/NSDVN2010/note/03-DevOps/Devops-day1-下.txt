@@ -1,0 +1,32 @@
+Devops-day1-下
+1、urllib模块概述
+	- 用于编写http和ftp程序有关的
+	- 四个模块
+		- urllib.request		#用于发送request和接收request结果
+		- urllib.error			#包含了urllib.request产生异常
+		- urllib.parse			#解析和处理url
+		- urllib.robotparse		#解析页面的robots.txt
+	- 下载网页
+		res = urllib.request.urlopen('url')
+		- 读取方法(跟文件读取结果一致)
+			- read()		#一次性读取全部内容
+			- readline()	#读取一行
+			- readlines()	#读取所有内容，返回列表
+	- 下载文件和图片
+
+2、urllib应用
+	- 反爬机制	request.urlopen('http://www.jianshu.com/')    robots.txt
+	- Headers包装
+		- 通过request.Request(url,Headers=headers)进行请求头伪装
+	- quote编码
+		- request.quote()编码
+		- request.unquote()解码
+	- error异常捕获
+		- 所有关于http的异常
+
+3、paramiko模块
+	- SSHClient()		#创建连接实例
+	- AutoAddPolicy		#自动添加主机秘钥
+	- connect			#连接ssh服务器
+	- exec_command		#指定执行的命令
+	

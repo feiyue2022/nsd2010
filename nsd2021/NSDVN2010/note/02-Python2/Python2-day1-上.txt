@@ -1,0 +1,112 @@
+Python2-day01-上
+1、time模块
+	- 时间元组（九元组）
+	- struct_time(tm_year=2021, tm_mon=6, tm_mday=23, tm_hour=9, tm_min=23, tm_sec=8, tm_wday=2, tm_yday=174, tm_isdst=0)
+					年				月		日			时			分			秒		星期几		年天	 	是否为dst
+	- 常用方法
+		- .sleep()					线程推迟运行的时间，单位是s
+		- .time(s)					获取当前时间戳
+		- .localtime(timestamp)		将时间戳转换为当前时区的九元组，默认当前时间戳，可以指定
+		- .gmtime(timestamp)		同localtime()方法，转换至0时区
+		
+		- .mktime(struct_time)		九元组-->时间戳
+		- .asctime(struct_time)		九元组-->易读时间
+		- .ctime(timestamp)			时间戳-->易读时间
+		
+		- .strftime(format,struct_time)			九元组-->格式化时间
+		- .strptime(string,format)				格式化时间-->九元组	
+		
+2、datetime模块(重新封装了time模块，提供了更多接口和类)
+		- date类 datetime.date
+			- 静态方法和字段(类变量)
+				- date.max						最大日期
+				- date.min						最小日期
+				- date.resolution				date对象表示日期的最小三维
+				- date.today()					当前本地日期对象
+				- date.fromtimestamp(timestamp)	根据时间戳返回date对象
+			- 方法和属性（针对date对象）  d=datetime.date.today()
+				- .year,.month,.day   年月日
+				- .replace(year,month,day)		生成一个新的日期对象
+				- .timetuple()					返回时间九元组
+				- .weekday()					返回星期几（0-6）
+				- .isoweeeday()					返回星期几（1-7）
+				- .isocalendar()				返回(year,month,day)元组
+				- .isoformat()					返回'xxxx-xx-xx'字符串
+				- .strftime(fmt)				格式化输出
+		
+		- time类 datetime.time
+			- 静态方法和字段
+				- time.min/time.max 			最小、最大时间
+				- time.resolution				时间最小单位
+			- 方法和属性（针对time对象）t=datetime.time(10,23,25)
+				- .hour/.minute/.second/.microsecond	时分秒微秒
+				- tzinfo	时区
+				- replace()		生成一个新的时间对象
+				- isoformat()	如"xx:xx:xx"
+				- strftime(fmt)	格式化输出
+		
+		- datetime类 datetime.datetime
+			- 静态方法和字段
+				- .today()						当前本地时间的datetime对象
+				- .now()						当前本地时间的datetime对象，可支持设置tz
+				- .utcnow()						当前utc时间的datetime对象#格林尼治时间
+				- .fromtimestamp(timestamp)		根据时间戳返回datetime对象
+				- .utcfromtimestamp(timestamp)  根据时间戳返回utc的datetime对象
+				- .combine(date,time)			根据date和time的对象创建一个datetime对象
+				- .strptime(str,fmt)			将格式化字符串转换成datetime对象
+			- 方法和属性（针对datetime对象）dt=datetime.datetime.now()
+				- .year/.month/.day/.hour/.minute/.second/.microsecond/.tzinfo
+				- .date()
+				- .time()
+				- .replace()
+				- .timetuple()
+				- .utctimetuplu()
+				- .toordinal()			返回日期的多边格里高利度序数
+				- .weekday()
+				- .isocalendar()		返回(年，周，日)
+				- .isoformat()			
+				- .ctime()
+				- .strftime(fmt)
+		
+		- timedelta类，时间加减  用于天、小时、分钟、秒、毫秒，不能用于月
+			dt = datetime.datatime.now()
+			dt1 = datatime.timedelta(days=-1)	#昨天
+			dt2 = dt - datatime.timedelta(days=1) #昨天
+			dt3 = dt + datatime.timedelta(days=1) #明天
+			
+		- tzinfo类
+			- 见附件tzinfo_class.py
+				
+
+3、异常处理
+	- 定义
+		- Python不严格区分错误和异常
+		- 当程序执行到某一行代码无法继续往下执行时
+		- 因为程序出现了错误，正常流程无法控制，由解释器控制采取的行为
+		
+	- 常见异常
+		- Exception ： 所有异常的基类
+		- AttributeError ： 	特征引用或者复制失败时引发
+		- IOError ： 			试图打开不存在文件（包括其他情况）时引发
+		- IndexError ： 		在使用序列不存在的索引引发
+		- Key Error ： 			在使用映射不存在的键时引发
+		- NameError ： 			在找不到名字（变量）时引发
+		- SyntaxError ： 		在代码为错误形式时引发
+		- TypeError ： 			在内建操作或者函数应用于错误类型的对象时引发
+		- ValueError ： 		在内建操作或者函数应用与正确类型的对象，但是该对象使用不合适的值时引发
+		- ZeroDivisionError ： 	在除法或者模除操作的第二个参数为0时引发
+	
+	- 异常处理办法
+		- try:					#指定监控异常的语句
+			可能出现异常的语句
+		  except E1 as e1：		#出现指定异常的处理办法
+			第一种异常			
+		  except E2 as e2:
+			第二种异常
+			...
+		  except E as e:		#懒得去分类的时候，可以直接捕获Exception
+		    所有异常
+		  else：				#没出现异常执行的代码
+		    suit_body()
+		  finally:				#不管有没有异常都执行的代码
+		    suit_body()

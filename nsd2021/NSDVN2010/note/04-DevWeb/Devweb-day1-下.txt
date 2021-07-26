@@ -1,0 +1,149 @@
+DevWeb-day1-下
+
+1、表格和列表
+	- 表格
+		- 使用<table></table>定义表
+			- width		宽
+			- height	高
+			- align		对齐方式
+			- border	边框宽度
+			- cellpadding	内边距
+			- cellspacing	外边距
+			- bgcolor		背景色
+		- 使用<tr></tr>定义行
+			- align		水平对齐方式
+			- valign 	垂直对齐方式
+		- 使用<td></td>定义列
+			- align 	水平对齐方式
+			- valign	垂直对齐方式
+			- width		宽度
+			- height	高度
+			- colspan	跨列
+			- rowspan	跨行
+	- 列表
+		- 有序列表
+			- <ol></ol>定义有序列表
+				- type 定义列表类型
+					- 1数字
+					- a
+					- A
+					- i
+					- I
+				- start 定义起始值
+			- <li></li>定义内容
+		- 无序列表
+			- <ul></ul>定义无序列表
+				- type 定义类型
+					- disc
+					- circle
+					- square
+			- <li></li>定义内容
+
+2、form表单及控件
+	- 表单
+		- 用于显示、收集信息
+		- 并提交信息到服务器
+	- 组成
+		- 实现数据交互的可见界面元素
+		- 提交后的表单处理
+	- 界面元素
+		- 使用<form>元素创建表单
+		- 在<form>元素中添加表单可以包括的控件元素
+	- 表单元素
+		- 使用<form></form>标记
+		- 属性
+			- action 表单提交时发生的动作，通常是url
+			- method 表单时数据提交方式
+			- enctype 表单数据的编码方式
+			- name	  表单名称
+	- 表单控件
+		- 包含在表单元素中具有可视化外观界面的html元素
+		- 用于访问者输入信息
+		- 控件元素
+			- input
+				- 单标记
+				- 属性
+					- type		属性
+						- text 文本
+						- password 密码
+							- name
+							- value
+							- maxlength
+							- readonly
+						- radio		单选框
+						- checkbox	复选框
+							- name
+							- value
+							- checked
+						- submit	提交
+						- reset		重置
+						- button	普通
+							- name
+							- value
+						- 
+					- value		控件的数据
+					- name		控件名称
+					- disabled	禁用控件
+			- textarea
+				- <textarea></textarea> 多行文本框
+					- name	名称
+					- cols 	列数
+					- rows	行数
+					- readonly	只读
+			- select>option 选项框
+				- select 创建选项框
+					- name 		命名
+					- size		>1为滚动列表
+					- multiple	多选
+				- option 选项
+					- value 	值
+					- selected	预选中
+			
+			- 其他
+				- <label>文本</label>
+					- for 与该元素相联系的控件的ID值
+					- 将文本与控件联系在一起，单击文本和单机控件效果一致
+				
+3、CSS概述
+	- 层叠样式表/级联样式表
+	- 用于HTML文档中元素样式定义
+		- 实现了内容和表现分离
+		- 提高代码的重用性和可维护性
+	- HTML与CSS
+		- HTML用于构建网页结构
+		- css用于构建html元素的样式
+		- HTML是内容、css是表现
+	- W3C建议尽量使用css代替HTML属性
+	- 使用方式
+		- 内联方式
+			定义在单个的html元素中
+		- 内部样式表
+			- 定义在HTML页的头元素中
+		- 外部样式表
+			- 定义在一个外部css文件中
+			- 有HTML页面引用该文件
+
+
+
+
+
+扩展站点
+	- https://www.runoob.com/
+	- https://www.w3school.com.cn/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

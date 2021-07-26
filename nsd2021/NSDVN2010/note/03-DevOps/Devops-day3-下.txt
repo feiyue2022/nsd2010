@@ -1,0 +1,46 @@
+Devops-day3-下
+1、ansible编程之adhoc
+	- ResultCallback类
+		- 自定义输出类，数据json格式的数据，可以删除这个类，维持ansible的输出状态
+	- options
+		- 用于设置选项，多数都是用默认值即可
+		- connection 用于设置连接方式
+			- local表示本地执行
+			- ssh 表示通过ssh到远程主机执行
+			- smart 表示智能选择				远程连接的方式需要做ssh免密登录
+	- inventory 主机清单配置
+		- 将主机名通过逗号分开的字符串
+		- 主机清单文件列表
+	- play_source 剧本源文件
+		- 定义一个play的基础信息
+	- play
+		- 生成剧本
+	- tqm
+		- 执行任务
+2、ansible编程之playbook
+	- 按照adhoc的编码进行修改，其他地方基本一致
+3、ansible模块开发
+	- 官网
+		- https://docs.ansible.com/ansible/2.7/modules/list_of_all_modules.html
+	- 执行流程
+		- 将模块文件读入内存，然后添加传递给模块的参数
+		- 最后将模块中所需要的类添加到内存，由 zipfile 压缩后，再由 base64 进行编码，写入到模块文件内
+		- 通过默认连接方式（一般是ssh），ansible 连接到远程主机，创建临时目录，并关闭连接
+		- 打开另外一个ssh连接，将模板文件以 sftp 方式传送到刚刚创建的临时目录中，写完后关闭连接
+		- 打开一个 ssh 连接将任务对象赋予可执行权限，执行成功后关闭连接
+		- 最后，ansible 将再打开一个新连接来执行模块，并删除临时目录及其所有内容
+		- 模块结果是从标准输出stdout中获取json格式的字符串
+		- ansible将解析和处理此字符串
+	- 模块路径
+		- 用ANSIBLE_LIBRARY环境变量指定模块的存放路径
+		- 将自定义的模块放置与新建目录下
+	- 模块编写规则
+		- 编写模块头：在文件头部加入下来语句，表示该模块使用 python 运行
+		- 导入所需要的模块，如 shutil 模块，
+		- 创建模块入口，使用 AnsibleModule 类中的 argument_spec 来接受参数
+		- 执行动作：使用 shutil.copy 拷贝文件
+		- 返回结果
+			- 拷贝完成后，返回 json 数据
+			- 编写主程序代码
+
+

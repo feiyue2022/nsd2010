@@ -1,0 +1,366 @@
+DevOps-day04-下
+1、git服务器搭建
+	- 概述
+		- 乌克兰的程序员开发
+		- 使用Ruby语言并用go做了一些补充
+		- 使用git管理代码并且附加了web服务
+		- 用于仓库管理系统的开源项目
+		- 社区版完全免费
+		- 可以建立私有仓库且无上限
+		- 参与人数没限制且可以对成员权限进行控制
+	- 由于搭建复杂，所以用docker容器运行gitlab
+		- gitlab_zh.tar   中文版
+		- 自行安装docker
+		- 修改宿主机的sshd服务端口，防止跟容器冲突
+		- docker run -d --name gitlab --hostname gitlab\
+          -p 22:22 -p 80:80 -p 443:443 \
+		  --restart always \
+		  -v /srv/gitlab/config:/etc/gitlab/\
+		  -v /srv/gitlab/logs:/var/log/gitlab/\
+		  -v /srv/gitlab/data:/var/opt/gitlab/\  
+		  gitlab_zh:latest
+	- 默认用户root，修改密码后登陆
+	- gitlab基础
+		- 群组group：使用群组管理项目和人员是比较好的方式
+		- 项目project：存储代码的地方，包含问题列表、维基文档和其他一些gitlab功能
+		- 成员member：添加团队成员或者其他人员到gitlab
+2、使用gitlab
+	- 用户管理
+		- 新建用户
+		- 加入群组
+	- 代码管理
+		- 关联方式创建完项目给出提示
+		- 本地仓库推送
+			- git remote add origin http://gitlab_ip/devops/myproject.git
+			- git push -u origin --all   推送所有分支
+			- git push -u origin --tags	 推送所有标签
+		- 更新本地代码
+			- git pull
+		- 免密登录
+			- ssh的方式
+			- 拷贝本地公钥到用户公钥
+			- git remote rename origin old-origin
+			- git remote add origin git@gitlab_ip:/devops/myproject.git
+			- git push -u origin --all
+			
+
+3、远程分支管理
+	- 远程仓库
+		- 托管在因特网或者其他网络中的项目版本库
+		- 每个用户可以有多个远程仓库，每个仓库的权限不同
+		- 与他人协作及管理的远程仓库可以根据需要推送或拉取数据
+		- 操作
+			- 添加远程仓库
+			- 移除无效的远程仓库
+			- 管理不同分支
+			- 定义是否跟踪
+		- 查看远程仓库
+			- git remote
+			- git remote -v
+			- git remote show <canme>   详细信息
+		- 添加远程仓库
+			- git remote add <shortname> url
+		- 重命名远程仓库
+			- git remote rename oldname newname
+		- 移除远程仓库
+			- git remote remove
+			- git remote rm
+	- 远程分支
+		- 远程引用是对远程仓库的引用（指针），包括分支，标签等
+		- 已通过git ls-remote 获取远程引用的完整列表
+		- 远程跟踪分支是远程分支状态的引用
+		- 命名
+			remote/branch
+		- 推送分支
+			- git push remote branch
+		- 跟踪分支
+			- 从一个远程跟踪分支检出一个本地分支会自动创建“跟踪分支”
+			- 它跟踪的分支叫做“上游分支”
+			- 跟踪分支是与远程分支有直接关系的本地分支
+			- 通常是master分支跟踪origin/master分支
+		- 拉取数据
+			- git fetch
+				- 从服务器上抓取本地没有的数据，不修改工作目录中的内容
+				- 由用户自己合并
+			- git pull
+				- 查找当前分支所跟踪的服务器分支
+				- 从服务器上拉取数据然后尝试合并入那个远程分支
+				- 可以理解为pull是fetch+merge
+		- 删除远程分支
+			- git push origin --delete branch
+			
+			
+			
+			
+			
+			
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+note：
+#安装git
+yum -y install git
+source /etc/bash_completion.d/git
+#设置git全局配置
+git config --global user.name 'mark'
+git config --global user.email  'mark@tedu.cn'
+git config --global core.editor vim
+git config --list
+#初始化仓库
+mkdir git_pro
+cd git_pro/
+mkdir myproject
+cd myproject/
+#编辑说明文档
+vim README.md
+vim .gitignore
+#初始化仓库
+git init
+git status
+#提交到本地版本库
+git add .
+git commit -m "init repository"
+git status
+#打附录标签
+git tag -a init -m "init repositroy"
+git tag 
+#初始化项目文件
+for i in {1..2}; do echo "<h1>$i" > index_$i.html; done
+git status
+#提交到本地版本库并打1.0标签
+git add .
+git commit -m "version1"
+git tag -a v1.0 -m "version1.0"
+git tag 
+
+##搭建gitlab
+#修改宿主机sshd端口
+[root@gitlab ~]# vim /etc/ssh/sshd_config 
+[root@gitlab ~]# cat /etc/ssh/sshd_config | grep ^Port
+Port 2222
+[root@gitlab ~]# systemctl restart sshd
+[root@gitlab ~]# ss -untpl | grep ssh
+#运行gitlab容器
+[root@gitlab ~]# docker run -d \
+> --name gitlab --hostname gitlab \
+> --restart always \
+> -p 22:22 -p 80:80 -p 443:443 \
+> -v /srv/gitlab/config:/etc/gitlab/ \
+> -v /srv/gitlab/logs:/var/log/gitlab/ \
+> -v /srv/gitlab/data:/var/opt/gitlab/ \
+> gitlab_zh:latest
+14c669d44755ff38c0cb1ad33ba3592de4ac3f70e7faff697406c32abfac2d7e
+[root@gitlab ~]# docker ps
+#容器进程没有退出表示启动命令正确
+
+##git客户端操作
+#关联本地版本库和gitlab服务器版本库
+git remote 
+git remote add origin http://192.168.1.1/devops/myproject.git
+git remote 
+git push -u origin --all		#推送所有分支
+git push -u origin --tags 		#推送所有标签
+
+#创建本地普通用户
+[root@node02 myproject]# for i in wdn zs ls
+> do
+> useradd $i
+> echo 123 | passwd --stdin $i
+> done
+#如果你的root用户没有秘钥对，用ssh-keygen命令生成
+[root@node02 myproject]# ls ~/.ssh/
+authorized_keys  id_rsa  id_rsa.pub
+[root@node02 myproject]# cp -r ~/.ssh/ /home/wdn/
+[root@node02 myproject]# cp -r ~/.ssh/ /home/zs
+[root@node02 myproject]# cp -r ~/.ssh/ /home/li
+[root@node02 myproject]# chown -R wdn.wdn /home/wdn/.ssh/
+[root@node02 myproject]# chown -R zs.zs /home/zs/.ssh/
+[root@node02 myproject]# chown -R ls.ls /home/ls/.ssh/
+
+#普通用户同步gitlab服务器上的代码
+[wdn@node02 ~]$ git clone http://192.168.1.1/devops/myproject.git
+[zs@node02 ~]$ git clone http://192.168.1.1/devops/myproject.git
+[ls@node02 ~]$ git clone http://192.168.1.1/devops/myproject.git
+
+#配置普通用户全局设置
+[wdn@node02 myproject]$ git config --global user.name wdn
+[wdn@node02 myproject]$ git config --global user.email wdn@nb.com
+[wdn@node02 myproject]$ git config --global core.editor vim
+[zs@node02 myproject]$ git config --global user.name zs
+[zs@node02 myproject]$ git config --global user.email zs@nb.com
+[zs@node02 myproject]$ git config --global core.editor vim
+[ls@node02 myproject]$ git config --global user.name ls
+[ls@node02 myproject]$ git config --global user.email ls@nb.com
+[ls@node02 myproject]$ git config --global core.editor vim
+
+#设置默认推送模式
+[wdn@node02 myproject]$ git config --global push.default simple
+[zs@node02 myproject]$ git config --global push.default simple
+[ls@node02 myproject]$ git config --global push.default simple
+
+#wdn用户修改readme
+[wdn@node02 myproject]$ vim README.md
+[wdn@node02 myproject]$ git status
+[wdn@node02 myproject]$ git add .
+[wdn@node02 myproject]$ git commit -m "接手"
+[master 19c6370] 接手
+ 1 file changed, 2 insertions(+)
+[wdn@node02 myproject]$ git push
+此处输入用户名、密码，然后推送成功
+
+#设置免密推送
+[wdn@node02 myproject]$ cat ~/.ssh/id_rsa.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvuRWhFp0N0sEjeEc2KkdNMj5X7qgGGy0McGHmdmNRreMqdYTuvJGmfKCRsSQ8vn3xaVIXMmWWnVCxWpEihkj5Kh3gDYMSTyweBLzbS/ldpzc//NLM92lXwOG5Om9CTMbppvUsX0D20miHigdDOtqGHZ/hyHp5NEXTsurZgBxsLu3kCUaT/pG1SrwOvVzW2F5KgEu/mBwhEBNsZMDOoIQTt/tTQ0zHr7K7jMnggAW4x6wis/nCuzL+/gEYeI0zh+OjsAUVyw05FroapEfQtb8NeHnGs9AhDD0UXNjNf5Px2j51+M0tELVcmt1Vh8haBMEFSLtFTyvt+RaJ5jRietUp root@localhost.localdomain
+#粘贴公钥至用户秘钥框，点击添加
+
+#测试免密推送
+[wdn@node02 myproject]$ git remote remove origin  
+[wdn@node02 myproject]$ git remote
+[wdn@node02 myproject]$ git remote add origin git@192.168.1.1:devops/myproject.git
+
+[wdn@node02 myproject]$ vim README.md 
+[wdn@node02 myproject]$ git status
+[wdn@node02 myproject]$ git add .
+[wdn@node02 myproject]$ git commit -m "部署任务"
+[wdn@node02 myproject]$ git push
+#如果出现报错：The current branch master has no upstream branch，执行下边的命令
+[wdn@node02 myproject]$ git push --set-upstream origin master
+[wdn@node02 myproject]$ vim README.md 
+[wdn@node02 myproject]$ git add .
+[wdn@node02 myproject]$ git commit -m 'modify readme'
+[wdn@node02 myproject]$ git push
+#其他用户同步gitlab数据
+[zs@node02 myproject]$ git pull
+[ls@node02 myproject]$ git pull
+
+#更新张三李四用户的origin
+[zs@node02 myproject]$ git remote -v
+[zs@node02 myproject]$ git remote remove origin 
+[zs@node02 myproject]$ git remote add origin git@192.168.1.1:devops/myproject.git
+[zs@node02 myproject]$ git remote -v
+[zs@node02 myproject]$ git branch --set-upstream-to=origin/master 
+Branch master set up to track remote branch master from origin.
+[zs@node02 myproject]$ git pull
+
+[ls@node02 myproject]$ git remote -v
+[ls@node02 myproject]$ git remote remove origin 
+[ls@node02 myproject]$ git remote add origin git@192.168.1.1:devops/myproject.git
+[ls@node02 myproject]$ git remote -v
+#关联上游分支
+[ls@node02 myproject]$ git branch --set-upstream-to=origin/master 
+Branch master set up to track remote branch master from origin.
+[ls@node02 myproject]$ git pull
+
+#测试ssh免密，同步代码仓库
+[wdn@node02 ~]$ cd myproject/
+[wdn@node02 myproject]$ vim README.md 
+[wdn@node02 myproject]$ git add .
+[wdn@node02 myproject]$ git commit -m "update tasks"
+[wdn@node02 myproject]$ git push
+
+[zs@node02 myproject]$ git pull
+[ls@node02 myproject]$ git pull
+
+#协同工作流程
+[zs@node02 myproject]$ vim README.md 
+[zs@node02 myproject]$ git add .
+[zs@node02 myproject]$ git commit -m "zs working"
+[master dec11f4] zs working
+ 1 file changed, 1 insertion(+)
+#此时开发者用户张三，不允许向orgin/mastser分支推送代码
+[zs@node02 myproject]$ git push
+Counting objects: 5, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 361 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: GitLab: You are not allowed to push code to protected branches on this project.
+To git@192.168.1.1:devops/myproject.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'git@192.168.1.1:devops/myproject.git'
+[zs@node02 myproject]$ 
+
+#zs工作过程
+[zs@node02 myproject]$ git branch 
+[zs@node02 myproject]$ git branch zsmaster
+[zs@node02 myproject]$ git checkout zsmaster 
+[zs@node02 myproject]$ git branch 
+[zs@node02 myproject]$ vim README.md 
+[zs@node02 myproject]$ git add .
+[zs@node02 myproject]$ git commit -m "zs init"
+[zs@node02 myproject]$ git push origin zsmaster 
+[zs@node02 myproject]$ vim index_1.html 
+[zs@node02 myproject]$ git add .
+[zs@node02 myproject]$ git commit -m "zs finish"
+[zs@node02 myproject]$ git push --set-upstream origin zsmaster 
+[zs@node02 myproject]$ git push
+#wdn工作过程
+[wdn@node02 myproject]$ git branch 
+[wdn@node02 myproject]$ git checkout -b zsbr
+[wdn@node02 myproject]$ git pull origin zsmaster
+[wdn@node02 myproject]$ git branch 
+[wdn@node02 myproject]$ cat index_1.html 
+[wdn@node02 myproject]$ git checkout master
+[wdn@node02 myproject]$ git merge zsbr 
+[wdn@node02 myproject]$ git status
+[wdn@node02 myproject]$ git push
+[wdn@node02 myproject]$ git push --delete origin zsmaster
+#zs代码通过后清理本地分支
+[zs@node02 myproject]$ git branch 
+  master
+* zsmaster
+[zs@node02 myproject]$ git checkout 
+[zs@node02 myproject]$ git checkout master 
+[zs@node02 myproject]$ git merge zsmaster 
+[zs@node02 myproject]$ git branch -d zsmaster 
+
+#ls用户操作
+[ls@node02 myproject]$ git branch 
+[ls@node02 myproject]$ git branch lsmaster
+[ls@node02 myproject]$ git checkout lsmaster 
+[ls@node02 myproject]$ vim README.md 
+[ls@node02 myproject]$ git add .
+[ls@node02 myproject]$ git commit -m "ls init"
+[ls@node02 myproject]$ vim index_2.html 
+[ls@node02 myproject]$ git add .
+[ls@node02 myproject]$ git commit -m "ls finish"
+[ls@node02 myproject]$ git push origin lsmaster
+[ls@node02 myproject]$ vim index_2.html 
+[ls@node02 myproject]$ git add .
+[ls@node02 myproject]$ git commit -m "ls finishd"
+[ls@node02 myproject]$ git push --set-upstream origin lsmaster 
+
+#wdn用户操作
+[wdn@node02 myproject]$ git checkout -b lsmaster
+[wdn@node02 myproject]$ git branch 
+[wdn@node02 myproject]$ git pull origin lsmaster
+[wdn@node02 myproject]$ cat index_2.html
+#手工解决冲突
+[wdn@node02 myproject]$ git status
+[wdn@node02 myproject]$ git add .
+[wdn@node02 myproject]$ git commit -m "merge"
+[wdn@node02 myproject]$ git checkout master
+[wdn@node02 myproject]$ git branch 
+[wdn@node02 myproject]$ git merge lsmaster 
+[wdn@node02 myproject]$ git push
+[wdn@node02 myproject]$ git push --delete origin lsmaster 
+[wdn@node02 myproject]$ git branch 
+[wdn@node02 myproject]$ git branch -d lsmaster 
+[wdn@node02 myproject]$ git branch -d zsbr 
+
+#李四用户清理本地分支
+[ls@node02 myproject]$ git status
+[ls@node02 myproject]$ git checkout master 
+[ls@node02 myproject]$ git merge lsmaster 
+[ls@node02 myproject]$ git branch -d lsmaster 
+
+#更新节点代码，至张三李四本地master分支同步origin/master分支
+[zs@node02 myproject]$ git pull
+[ls@node02 myproject]$ git pull
+
+
+
+
+
+
+
+
+

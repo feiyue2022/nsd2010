@@ -1,0 +1,91 @@
+Python2-day1-下
+1、自定义异常
+	- raise 触发异常
+		- 调用时创建一个指定异常类的对象
+		- 可以加入提示信息
+	
+	- assert  断言异常
+		- 一句必须等价于布尔值为真的判定
+		- 发生异常则代表表达式为假
+		- assert 10 > 100,'Wrong'
+		
+	- 样例
+		def set_age(name, age):
+			if not 0 < age < 120:
+				raise ValueError('年龄超过范围')  # 自主决定触发什么样的异常
+			print("%s is %d years old" % (name, age))
+
+		def set_age2(name, age):
+			assert 0 < age < 120, '年龄超过范围'   # 断言异常
+			print("%s is %d years old" % (name, age))
+			
+	- 总结
+		- assert自带判断功能
+		- raise多数用于判断体代码
+			
+2、os模块（文件系统相关）
+	- 常用方法
+		- .symlink()		创建连接
+		- .unlink()			取消链接
+		- .listdir()		列出指定目录的文件
+		- .walk()			遍历目录下所有文件
+		- .getcwd()			获取当前的工作目录
+		- .mkdir()			创建目录
+		- .mknod()			创建文件，适用于Linux
+		- .rmdir()			删除目录	目录不为空时无法删除
+		- .remove()			删除文件
+		- .chmod(八进制)			修改权限
+		- .chown(file,uid,gid)			修改归属
+		- .chdir()			切换工作目录
+		- .getlogin()		获取当前登录用户
+		- .system()			调用系统命令
+		- .fork()			创建子进程
+		
+		- .path相关
+			- os.path.abspath()		获取绝对路径
+			- os.path.exists()		是否存在
+			- os.path.dirname()		目录名
+			- os.path.getsize()		文件大小
+			- os.path.isdir()		是否目录
+			- os.path.isfile()		是否文件
+			- os.path.islink()		是否链接
+			- os.path.join()		拼接
+			- os.path.realpath()	获取链接的源路径
+			- os.path.split()		分离目录和文件名
+			- os.path.ismount()		判断是否为挂载点
+		
+
+3、pickle模块
+	- 概念
+		- 仅适用于Python
+		- 常规方法open()将数据写入文件时，只能把字符串对象写入，其他数据类型如list，tuple、directory写入就会报错
+		- pickle模块可以向文件存储任何Python对象，并且支持以原格式取出数据
+		- 数据经过pickle模块处理后，可读性差，人类一般不可读
+		- 节省空间
+		
+	- 协议
+		- 该pickle模块实现了用于序列化和反序列化Python对象结构的二进制协议
+	
+	- 工作过程（详见图pickle）
+		- 串行化			对象-->字节流-->网络/文件
+		- 反串行化			网络/文件-->字节流-->对象
+		
+	- 常用方法
+		- .dumps(obj)		对象-->字节流	
+		- .loads(bytes)		字节流-->对象
+		- .dump(obj,fobj)	对象-->网络/文件
+		- .load(fobj)		网络/文件-->对象
+		
+	- 账本案例
+	
+extras： json模块
+	- json是轻量级的数据格式、通常作为各种语言之间交互数据用，通用
+	
+	- 常用方法
+		- .dumps(obj)
+		- .loads(str)
+		- .dump(obj,fobj)
+		- .load(fobj)
+	- 对比总结
+		- json序列化对象通用
+		- pickle序列化对象仅适用于Python，但支持函数和类

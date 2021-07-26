@@ -1,0 +1,60 @@
+Devops-day2-上
+1、邮件编程
+	- 邮件设置
+		- 发件人
+		- 收件人
+		- 主题
+		- 正文
+		- 邮件服务器
+		- 头部消息（可有可无）
+	- SMTP
+		- 简单邮件传输协议，使用TCP的25端口
+		- 一组用于由源地址到目的地址的邮件规则，控制信件的中转
+		- smtplib模块
+2、Json
+	- 一种轻量级的数据交换格式
+	- 易于人类读写
+	- 是一种数据格式，不是语言
+	- 基本上所有语言通用的数据交换格式
+	
+	- dumps() Python数据类型->json(字符串)  	编码
+	- loads() json(字符串)->Python数据类型		解码
+	
+	- 天气网
+		- [x] 实况天气获取：http://www.weather.com.cn/data/sk/城市代码.html
+		- [x] 城市信息获取：http://www.weather.com.cn/data/cityinfo/城市代码.html
+		- [x] 详细指数获取：http://www.weather.com.cn/data/zs/城市代码.html
+
+3、requests基础
+	- 概述
+		- 使用Python编写，优雅而且简单的http库
+		- 内部采用urllib3
+		- 对urllib3进行封装，使用更简洁
+		- 第三方模块
+	- 特性
+		- 支持keep-alived的连接池
+		- 支持通用的域名和url地址
+		- 支持使用cookie
+		- 支持使用类似浏览器的SSL认证
+		- 支持文件上传、下载
+	- 常用方法
+		- .get(url="",params={},headers={},cookies={})
+		- .post(url="",data={},params={},file={},headers={},cookies={})
+		- .put(url="",data={'key':'value'})
+		- .delete(url="")
+		- .head(url="")
+		- .options(url="")
+	- 请求操作
+		- 传递参数
+			- params 多数情况下是键值对
+		- 设置头部
+			- headers	用户设置请求头
+		- 请求数据
+			- data 置于请求body内，用data传参，用于post、put、delete等方法
+	- 内容处理
+		- r.text		文本内容
+		- r.encoding	设置编码
+		- r.content		二进制响应体，如图片
+		- r.json()		json解码体
+		- r.headers		响应头
+		

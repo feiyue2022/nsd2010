@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组合选择器</title>
+    <style>
+        /* 表示是p且调用cls1类生效 */
+        p.cls1{
+            text-decoration: underline;
+            font-size: 25px;
+            color: red;
+        }
+        /* 在p标签内  子类调用cls2生效 */
+        p .cls2{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="cls1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate autem error consequatur iste? Ad enim dicta accusamus! Et doloremque officiis fuga deleniti, numquam debitis nulla rerum laborum iusto, fugiat exercitationem.</div>
+    <p class="cls1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa esse expedita necessitatibus ea a rerum ex, reprehenderit similique atque, nam voluptatibus magnam molestiae eligendi cumque, facilis id harum delectus eveniet.</p>
+    <hr>
+    <p class="cls2">云计算  CLOUD</p>
+    <p>云计算  
+        <span class="cls2">
+            CLOUD
+        </span>
+    </p>
+</body>
+</html>

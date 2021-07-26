@@ -1,0 +1,73 @@
+Python2-day4-上
+1、Python模块安装
+	- 模块
+		- 标准库模块：os/sys/time
+		- 第三方模块：requests/xlrd
+	- 安装
+		- 本地安装
+			- 类似于源码包编译安装
+			- https://pypi.org
+			- 解包--> python3 setup.py install
+		- 网络安装
+			- 类似于使用网络yum源
+			- 修改为国内源
+				#cat ~/.pip/pip.conf
+				[global]
+				index-url=https://mirrors.aliyun.com/pypi/simple/
+				[install]
+				trusted-host=mirrors.aliyun.com
+			- pip3 install --upgrade pip/pip
+			- pip install requests
+		- 命令补全
+			- pip completion --bash >> ~/.bash_profile
+		
+		- pip search  原本可以用于搜索，但是由于2020年12月份出了个事儿，官网把这个接口关闭了
+		- pip install xxx==   tab   列出所有的版本，可以指定版本进行安装
+
+2、数据库准备
+	- 数据库回顾
+	- db_script.zip创建数据库
+	
+3、PyMySQL使用
+	- sql命令行补全工具：
+		- pip install mycli
+		- 用mycli替换mysql命令
+		
+	- pymysql模块套路
+		#!/usr/bin/env python3
+		import pymysql
+		conn = pymysql.connect(                     #创建连接对象
+			host = 'host',							#主机
+			port = 'port',							#端口
+			user = 'user',							#用户
+			password = 'password',					#密码
+			db = 'mydb'								#操作的库
+			charset = 'utf8'						#编码
+		)
+
+		cursor = conn.cursor()                      #创建游标
+		sql = 'select user,host from mysql.user;'   #设置sql语句
+		cursor.execute(sql)                         #执行sql语句
+		res = cursor.fetchall()                     #结果处理
+		conn.commit()                               #增删改需要提交
+		cursor.close()                              #关闭游标
+		conn.close()                                #关闭连接
+
+	- cursor  游标：一条sql语句取出n条结果资源的句柄/接口，是一个迭代器对象类型，可循环取出每行
+	- 操作数据库
+		- 插入
+			res = cursor.execute(sql,('data',))						#执行一次
+			res = cursor.executemany(sql,[('data1',),('data2',)])	#执行多次
+		- 查询
+			cursor.execute(sql)			#运行select语句，结果保存在cursor中
+			res = cursor.fetchone()		#获取一条记录
+			res = cursor.fetchmany(n)	#获取指定条数记录
+			res = cursor.fetchall()		#获取所有记录
+		- 提交
+			- 增删改的操作由execute()执行以后只在内存中做出修改，硬盘上的数据并未改动，需要commit()
+		- 关闭
+			- cursor.close()	#先关闭游标
+			- conn.close()		#再关闭连接对象
+	
+
+	

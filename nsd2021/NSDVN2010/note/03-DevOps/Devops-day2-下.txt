@@ -1,0 +1,32 @@
+Devops-day2-下
+1、钉钉机器人案例
+	- requests+json
+2、zabbix API概述
+	- 手册
+		https://www.zabbix.com/documentation/4.0/manual/api/reference
+	- zabbix_api
+		- 允许以编程的方式检索和修改zabbix配置，并提供对历史数据的访问
+		- 创建新的应用程序使用zabbix
+		- 将zabbix与第三方软件集成
+		- 自动执行常规任务
+	- 做什么？
+		- 将在网页的手工操作用编程的形式实现
+	- JSON-RPC
+		- zabbix api基于web的api接口，使用JSON-RPC2.0协议
+		- 该API包含一组独立的语法
+		- 客户端和API之间的请求和响应使用JSON编码格式
+	- 结构
+		- zabbix api包含了很多方法，名义上都是单组（为了做某一件事儿）
+		- 每个方法执行一个特定的任务
+		- 常用的方法
+			- get		检索
+			- create	创建
+			- update	更新
+			- delete	删除
+
+3、zabbix编程
+	- 工作过程
+		- 需要登录并获取身份验证令牌
+		- 获取令牌后用令牌替代身份验证
+		- 通过zabbix api提供的各种方法实现数据的检索、项目创建等
+	
